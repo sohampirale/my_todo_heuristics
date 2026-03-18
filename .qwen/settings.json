@@ -1,0 +1,27 @@
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "@playwright/mcp@latest",
+        "--caps=tracing",
+        "--save-trace",
+        "--output-dir=./traces"
+      ]
+    },
+    "mcp-deepwiki": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-deepwiki@latest"
+      ]
+    }
+  },
+  "$version": 3,
+  "mcp": {
+    "excluded": [
+      "mcp-deepwiki",
+      "playwright"
+    ]
+  }
+}
