@@ -12,9 +12,7 @@ export default function AuthPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate auth - in real app would call API
     if (mode === 'signin' && email && password) {
-      // Simulate error for demo
       setError('Invalid credentials');
     } else if (mode === 'signup' && email && password && name) {
       console.log('Signup:', { name, email, password });
@@ -25,11 +23,23 @@ export default function AuthPage() {
 
   return (
     <div className="max-w-md mx-auto">
-      <div className="bg-white rounded-lg shadow-md p-8">
-        <h1 className="text-2xl font-bold text-gray-900 mb-6" data-testid="auth-title">
-          {mode === 'signin' ? 'Sign In' : mode === 'signup' ? 'Sign Up' : 'Reset Password'}
+      {/* Page Header */}
+      <div className="text-center mb-8">
+        <div className="w-20 h-20 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/30">
+          <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+          </svg>
+        </div>
+        <h1 className="text-3xl font-bold gradient-text mb-2" data-testid="auth-title">
+          {mode === 'signin' ? 'Welcome Back' : mode === 'signup' ? 'Create Account' : 'Reset Password'}
         </h1>
+        <p className="text-gray-600">
+          {mode === 'signin' ? 'Sign in to your account' : mode === 'signup' ? 'Get started with TodoApp' : 'Recover your account'}
+        </p>
+      </div>
 
+      {/* Auth Card */}
+      <div className="card p-8">
         <form onSubmit={handleSubmit} className="space-y-4">
           {mode === 'signup' && (
             <SeededInput
@@ -77,25 +87,25 @@ export default function AuthPage() {
             className="w-full"
             data-testid="auth-submit-btn"
           >
-            {mode === 'signin' ? 'Sign In' : mode === 'signup' ? 'Create Account' : 'Send Reset Link'}
+            {mode === 'signin' ? '🔐 Sign In' : mode === 'signup' ? '✨ Create Account' : '📧 Send Reset Link'}
           </SeededButton>
         </form>
 
-        <div className="mt-6 space-y-2">
+        <div className="mt-6 space-y-3">
           {mode === 'signin' && (
             <>
               <button
                 onClick={() => setMode('signup')}
-                className="text-sm text-blue-600 hover:underline"
+                className="text-sm text-indigo-600 hover:text-indigo-700 font-medium hover:underline"
                 data-testid="auth-switch-signup"
               >
-                Don&apos;t have an account? Sign Up
+                Don&apos;t have an account? <span className="font-semibold">Sign Up</span>
               </button>
               <button
                 onClick={() => {
                   setMode('forgot' as unknown as 'signin' | 'signup');
                 }}
-                className="block text-sm text-blue-600 hover:underline"
+                className="block text-sm text-indigo-600 hover:text-indigo-700 font-medium hover:underline"
                 data-testid="auth-forgot-password"
               >
                 Forgot Password?
@@ -106,20 +116,20 @@ export default function AuthPage() {
           {mode === 'signup' && (
             <button
               onClick={() => setMode('signin')}
-              className="text-sm text-blue-600 hover:underline"
+              className="text-sm text-indigo-600 hover:text-indigo-700 font-medium hover:underline"
               data-testid="auth-switch-signin"
             >
-              Already have an account? Sign In
+              Already have an account? <span className="font-semibold">Sign In</span>
             </button>
           )}
 
           {mode === 'forgot' && (
             <button
               onClick={() => setMode('signin')}
-              className="text-sm text-blue-600 hover:underline"
+              className="text-sm text-indigo-600 hover:text-indigo-700 font-medium hover:underline"
               data-testid="auth-back-to-signin"
             >
-              Back to Sign In
+              ← Back to Sign In
             </button>
           )}
         </div>
