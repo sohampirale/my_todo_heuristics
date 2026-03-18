@@ -2,22 +2,60 @@
 
 import { useState } from 'react';
 import { SeededButton, SeededInput } from '@/components/seeded';
+import { useRouter } from 'next/navigation';
 
 export default function AuthPage() {
+  const router = useRouter();
   const [mode, setMode] = useState<'signin' | 'signup' | 'forgot'>('signin');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (mode === 'signin' && email && password) {
-      setError('Invalid credentials');
-    } else if (mode === 'signup' && email && password && name) {
-      console.log('Signup:', { name, email, password });
-    } else if (mode === 'forgot' && email) {
-      console.log('Password reset for:', email);
+    setError('');
+    setLoading(true);
+
+    try {
+      if (mode === 'signin' && email && password) {
+        const response = await fetch('/api/auth', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'signin', email, password }),
+        });
+
+        const data = await response.json();
+        if (!response.ok) {
+          setError(data.error || 'Sign in failed');
+        } else {
+          localStorage.setItem('user', JSON.stringify(data.user));
+          router.push('/tasks');
+        }
+      } else if (mode === 'signup' && email && password && name) {
+        const response = await fetch('/api/auth', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'signup', name, email, password }),
+        });
+
+        const data = await response.json();
+        if (!response.ok) {
+          setError(data.error || 'Signup failed');
+        } else {
+          localStorage.setItem('user', JSON.stringify(data.user));
+          router.push('/tasks');
+        }
+      } else if (mode === 'forgot' && email) {
+        // Password reset - just show success message for now
+        alert('Password reset link sent to: ' + email);
+      }
+    } catch (err) {
+      setError('Network error. Please try again.');
+      console.error('Auth error:', err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -86,8 +124,9 @@ export default function AuthPage() {
             type="submit"
             className="w-full"
             data-testid="auth-submit-btn"
+            disabled={loading}
           >
-            {mode === 'signin' ? '🔐 Sign In' : mode === 'signup' ? '✨ Create Account' : '📧 Send Reset Link'}
+            {loading ? 'Please wait...' : (mode === 'signin' ? '🔐 Sign In' : mode === 'signup' ? '✨ Create Account' : '📧 Send Reset Link')}
           </SeededButton>
         </form>
 
