@@ -15,11 +15,24 @@ export default function HomePage() {
     setIsModalOpen(true);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Quick add task:', taskTitle);
-    setTaskTitle('');
-    setIsModalOpen(false);
+    if (!taskTitle.trim()) return;
+    
+    try {
+      const res = await fetch('/api/tasks', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title: taskTitle }),
+      });
+
+      if (res.ok) {
+        setTaskTitle('');
+        setIsModalOpen(false);
+      }
+    } catch (error) {
+      console.error('Failed to create task:', error);
+    }
   };
 
   return (

@@ -1,0 +1,62 @@
+2:"$Sreact.fragment"
+4:I["[project]/node_modules/next/dist/next-devtools/userspace/app/segment-explorer-node.js [app-client] (ecmascript)",["/_next/static/chunks/node_modules_next_dist_be32b49c._.js","/_next/static/chunks/src_app_favicon_ico_mjs_81d86e48._.js"],"SegmentViewNode"]
+6:I["[project]/node_modules/next/dist/client/components/client-page.js [app-client] (ecmascript)",["/_next/static/chunks/node_modules_next_dist_be32b49c._.js","/_next/static/chunks/src_app_favicon_ico_mjs_81d86e48._.js"],"ClientPageRoot"]
+7:I["[project]/src/app/page.tsx [app-client] (ecmascript)",["/_next/static/chunks/_5dd575b7._.js","/_next/static/chunks/src_app_layout_tsx_1cf6b850._.js","/_next/static/chunks/_d20ec158._.js","/_next/static/chunks/src_app_page_tsx_5de09ea9._.js"],"default"]
+d:I["[project]/node_modules/next/dist/lib/framework/boundary-components.js [app-client] (ecmascript)",["/_next/static/chunks/node_modules_next_dist_be32b49c._.js","/_next/static/chunks/src_app_favicon_ico_mjs_81d86e48._.js"],"OutletBoundary"]
+f:"$Sreact.suspense"
+18:I["[project]/node_modules/next/dist/lib/framework/boundary-components.js [app-client] (ecmascript)",["/_next/static/chunks/node_modules_next_dist_be32b49c._.js","/_next/static/chunks/src_app_favicon_ico_mjs_81d86e48._.js"],"ViewportBoundary"]
+1f:I["[project]/node_modules/next/dist/lib/framework/boundary-components.js [app-client] (ecmascript)",["/_next/static/chunks/node_modules_next_dist_be32b49c._.js","/_next/static/chunks/src_app_favicon_ico_mjs_81d86e48._.js"],"MetadataBoundary"]
+:N1773851254255.3938
+1:[]
+3:[]
+5:[]
+8:[["Array.map","",0,0,0,0,false]]
+9:[["Array.map","",0,0,0,0,false]]
+b:{"name":"Next.MetadataOutlet","key":null,"env":"Server","stack":[],"props":{}}
+c:[]
+e:[]
+11:[]
+14:"$EObject.defineProperty(function(type,config,children){for(var propName,i=2;i<arguments.length;i++)validateChildKeys(arguments[i]);i={};var key=null;if(null!=config)for(propName in didWarnAboutOldJSXRuntime||!(\"__self\"in config)||\"key\"in config||(didWarnAboutOldJSXRuntime=!0,console.warn(\"Your app (or one of its dependencies) is using an outdated JSX transform. Update to the modern JSX transform for faster performance: https://react.dev/link/new-jsx-transform\")),hasValidKey(config)&&(checkKeyStringCoercion(config.key),key=\"\"+config.key),config)hasOwnProperty.call(config,propName)&&\"key\"!==propName&&\"__self\"!==propName&&\"__source\"!==propName&&(i[propName]=config[propName]);var childrenLength=arguments.length-2;if(1===childrenLength)i.children=children;else if(1<childrenLength){for(var childArray=Array(childrenLength),_i=0;_i<childrenLength;_i++)childArray[_i]=arguments[_i+2];Object.freeze&&Object.freeze(childArray),i.children=childArray}if(type&&type.defaultProps)for(propName in childrenLength=type.defaultProps)void 0===i[propName]&&(i[propName]=childrenLength[propName]);return key&&function(props,displayName){function warnAboutAccessingKey(){specialPropKeyWarningShown||(specialPropKeyWarningShown=!0,console.error(\"%s: `key` is not a prop. Trying to access it will result in `undefined` being returned. If you need to access the same value within the child component, you should pass it as a different prop. (https://react.dev/link/special-props)\",displayName))}warnAboutAccessingKey.isReactWarning=!0,Object.defineProperty(props,\"key\",{get:warnAboutAccessingKey,configurable:!0})}(i,\"function\"==typeof type?type.displayName||type.name||\"Unknown\":type),(propName=1e4>ReactSharedInternals.recentlyCreatedOwnerStacks++)?(childArray=Error.stackTraceLimit,Error.stackTraceLimit=10,childrenLength=Error(\"react-stack-top-frame\"),Error.stackTraceLimit=childArray):childrenLength=unknownOwnerDebugStack,ReactElement(type,key,i,getOwner(),childrenLength,propName?createTask(getTaskName(type)):unknownOwnerDebugTask)},\"name\",{value:\"\"})"
+13:{"name":"NonIndex","key":null,"env":"Server","stack":[],"props":{"createElement":"$14","pagePath":"/","statusCode":200,"isPossibleServerAction":false}}
+16:{"name":"ViewportWrapper","key":"519fbb2fv","env":"Server","stack":[],"props":{}}
+17:[]
+1a:{"name":"Next.Viewport","key":null,"env":"Server","owner":"$16","stack":[],"props":{}}
+1c:{"name":"MetadataWrapper","key":"519fbb2fm","env":"Server","stack":[],"props":{}}
+1d:[]
+1e:[]
+20:[]
+22:{"name":"Next.Metadata","key":null,"env":"Server","owner":"$1c","stack":[],"props":{}}
+a:D{"time":4.789214000105858}
+a:D"$b"
+a:D{"time":12.785394999664277}
+a:["$","$Ld",null,{"children":["$","$f",null,{"name":"Next.MetadataOutlet","children":"$@10"},"$b","$e",1]},"$b","$c",1]
+12:D{"time":13.727231999859214}
+12:D"$13"
+12:D{"time":13.757607999723405}
+12:null
+15:D{"time":13.92250799993053}
+15:D"$16"
+15:D{"time":14.16857700003311}
+19:D{"time":14.389132000040263}
+19:D"$1a"
+15:["$","$L18","519fbb2fv",{"children":"$L19"},"$16","$17",1]
+1b:D{"time":15.568426999729127}
+1b:D"$1c"
+1b:D{"time":15.895128999836743}
+21:D{"time":16.29916499974206}
+21:D"$22"
+1b:["$","div","519fbb2fm",{"hidden":true,"children":["$","$L1f",null,{"children":["$","$f",null,{"name":"Next.Metadata","children":"$L21"},"$1c","$20",1]},"$1c","$1e",1]},"$1c","$1d",1]
+0:{"b":"development","f":[["children","__PAGE__",["__PAGE__",{}],[["$","$2","c",{"children":[["$","$L4","c-page",{"type":"page","pagePath":"page.tsx","children":["$","$L6",null,{"Component":"$7","serverProvidedParams":{"searchParams":{},"params":{},"promises":null}},null,"$5",1]},null,"$3",1],[["$","script","script-0",{"src":"/_next/static/chunks/_d20ec158._.js","async":true,"nonce":"$undefined"},null,"$8",0],["$","script","script-1",{"src":"/_next/static/chunks/src_app_page_tsx_5de09ea9._.js","async":true,"nonce":"$undefined"},null,"$9",0]],"$a"]},null,"$1",0],{},null,false,false],["$","$2","h",{"children":["$12","$15","$1b"]},null,"$11",0],false]],"q":"","i":false,"S":false}
+23:[]
+24:[]
+19:D{"time":26.668864999897778}
+19:[["$","meta","0",{"charSet":"utf-8"},"$b","$23",0],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"},"$b","$24",0]]
+29:I["[project]/node_modules/next/dist/lib/metadata/generate/icon-mark.js [app-client] (ecmascript)",["/_next/static/chunks/node_modules_next_dist_be32b49c._.js","/_next/static/chunks/src_app_favicon_ico_mjs_81d86e48._.js"],"IconMark"]
+25:[]
+26:[]
+27:[["Array.map","",0,0,0,0,false]]
+28:[]
+10:D{"time":30.630820999853313}
+10:null
+21:D{"time":30.68111399980262}
+21:[["$","title","0",{"children":"Todo App - Seeded Usability Issues"},"$b","$25",0],["$","meta","1",{"name":"description","content":"A deterministic Todo/Productivity app with configurable UI faults for UX detection testing"},"$b","$26",0],["$","link","2",{"rel":"icon","href":"/favicon.ico?favicon.0b3bf435.ico","sizes":"256x256","type":"image/x-icon"},"$b","$27",0],["$","$L29","3",{},"$b","$28",0]]

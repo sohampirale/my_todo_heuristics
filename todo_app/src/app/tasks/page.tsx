@@ -1,67 +1,141 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { SeededButton } from '@/components/seeded';
 import { isSeedEnabled } from '@/lib/seeds';
 
 interface Task {
-  id: string;
+  _id?: string;
+  id?: string;
   title: string;
   completed: boolean;
   dueDate?: string;
 }
 
 export default function TasksPage() {
-  const [tasks, setTasks] = useState<Task[]>([
-    { id: '1', title: 'Complete project proposal', completed: false, dueDate: '2026-03-20' },
-    { id: '2', title: 'Review pull requests', completed: true, dueDate: '2026-03-18' },
-    { id: '3', title: 'Write documentation', completed: false, dueDate: '2026-03-22' },
-  ]);
+  const [tasks, setTasks] = useState<Task[]>([]);
+  const [loading, setLoading] = useState(true);
   const [newTaskTitle, setNewTaskTitle] = useState('');
   const [filter, setFilter] = useState<'all' | 'active' | 'completed'>('all');
   const [selectedTasks, setSelectedTasks] = useState<Set<string>>(new Set());
 
   const noConfirmDelete = isSeedEnabled('tasks', 'no_confirm_delete');
 
-  const handleAddTask = (e: React.FormEvent) => {
+  useEffect(() => {
+    loadTasks();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filter]);
+
+  const loadTasks = async () => {
+    setLoading(true);
+    try {
+      const url = filter !== 'all' ? `/api/tasks?filter=${filter}` : '/api/tasks';
+      const res = await fetch(url);
+      const data = await res.json();
+      setTasks(data.tasks || []);
+    } catch (error) {
+      console.error('Failed to load tasks:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleAddTask = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newTaskTitle.trim()) return;
-    
-    const newTask: Task = {
-      id: Date.now().toString(),
-      title: newTaskTitle,
-      completed: false,
-    };
-    setTasks([...tasks, newTask]);
-    setNewTaskTitle('');
+
+    try {
+      const res = await fetch('/api/tasks', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title: newTaskTitle }),
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        setTasks([...tasks, data.task]);
+        setNewTaskTitle('');
+      }
+    } catch (error) {
+      console.error('Failed to add task:', error);
+    }
   };
 
-  const handleToggleTask = (id: string) => {
-    setTasks(tasks.map(task => 
-      task.id === id ? { ...task, completed: !task.completed } : task
-    ));
+  const handleToggleTask = async (id: string) => {
+    const task = tasks.find(t => t._id === id || t.id === id);
+    if (!task) return;
+
+    try {
+      const res = await fetch(`/api/tasks/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ completed: !task.completed }),
+      });
+
+      if (res.ok) {
+        setTasks(tasks.map(t =>
+          (t._id === id || t.id === id) ? { ...t, completed: !task.completed } : t
+        ));
+      }
+    } catch (error) {
+      console.error('Failed to toggle task:', error);
+    }
   };
 
-  const handleDeleteTask = (id: string) => {
+  const handleDeleteTask = async (id: string) => {
     if (!noConfirmDelete && !confirm('Are you sure you want to delete this task?')) {
       return;
     }
-    setTasks(tasks.filter(task => task.id !== id));
+
+    try {
+      const res = await fetch(`/api/tasks/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (res.ok) {
+        setTasks(tasks.filter(t => t._id !== id && t.id !== id));
+      }
+    } catch (error) {
+      console.error('Failed to delete task:', error);
+    }
   };
 
-  const handleBulkComplete = () => {
-    setTasks(tasks.map(task => 
-      selectedTasks.has(task.id) ? { ...task, completed: true } : task
-    ));
-    setSelectedTasks(new Set());
+  const handleBulkComplete = async () => {
+    try {
+      const promises = Array.from(selectedTasks).map(id =>
+        fetch(`/api/tasks/${id}`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ completed: true }),
+        })
+      );
+      await Promise.all(promises);
+      
+      setTasks(tasks.map(task =>
+        selectedTasks.has(task._id || task.id || '') ? { ...task, completed: true } : task
+      ));
+      setSelectedTasks(new Set());
+    } catch (error) {
+      console.error('Failed to bulk complete:', error);
+    }
   };
 
-  const handleBulkDelete = () => {
+  const handleBulkDelete = async () => {
     if (!noConfirmDelete && !confirm('Delete selected tasks?')) {
       return;
     }
-    setTasks(tasks.filter(task => !selectedTasks.has(task.id)));
-    setSelectedTasks(new Set());
+
+    try {
+      const promises = Array.from(selectedTasks).map(id =>
+        fetch(`/api/tasks/${id}`, { method: 'DELETE' })
+      );
+      await Promise.all(promises);
+      
+      setTasks(tasks.filter(task => !selectedTasks.has(task._id || task.id || '')));
+      setSelectedTasks(new Set());
+    } catch (error) {
+      console.error('Failed to bulk delete:', error);
+    }
   };
 
   const filteredTasks = tasks.filter(task => {
@@ -91,11 +165,18 @@ export default function TasksPage() {
             className="input-modern flex-1"
             data-testid="tasks-new-input"
           />
-          <SeededButton seedPage="tasks" type="submit" data-testid="tasks-add-btn">
-            Add Task
+          <SeededButton seedPage="tasks" type="submit" data-testid="tasks-add-btn" disabled={loading}>
+            {loading ? '...' : 'Add Task'}
           </SeededButton>
         </form>
       </div>
+
+      {/* Loading State */}
+      {loading && (
+        <div className="flex justify-center py-8" data-testid="tasks-loading">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
+        </div>
+      )}
 
       {/* Filters and Bulk Actions */}
       <div className="card p-4 mb-6">
@@ -175,33 +256,35 @@ export default function TasksPage() {
           </div>
         ) : (
           <div className="divide-y divide-gray-100">
-            {filteredTasks.map(task => (
+            {filteredTasks.map(task => {
+              const taskId = task._id || task.id || '';
+              return (
               <div
-                key={task.id}
+                key={taskId}
                 className={`flex items-center gap-4 p-4 transition-all duration-300 hover:bg-gradient-to-r hover:from-indigo-50 hover:to-purple-50 ${
                   task.completed ? 'bg-gray-50' : ''
                 }`}
               >
                 <input
                   type="checkbox"
-                  checked={selectedTasks.has(task.id)}
+                  checked={selectedTasks.has(taskId)}
                   onChange={(e) => {
                     if (e.target.checked) {
-                      setSelectedTasks(new Set([...selectedTasks, task.id]));
+                      setSelectedTasks(new Set([...selectedTasks, taskId]));
                     } else {
                       const newSet = new Set(selectedTasks);
-                      newSet.delete(task.id);
+                      newSet.delete(taskId);
                       setSelectedTasks(newSet);
                     }
                   }}
-                  data-testid={`tasks-checkbox-${task.id}`}
+                  data-testid={`tasks-checkbox-${taskId}`}
                   className="w-5 h-5 text-indigo-600 rounded-lg border-2 border-gray-300 focus:ring-indigo-500 focus:ring-2 cursor-pointer"
                 />
                 <input
                   type="checkbox"
                   checked={task.completed}
-                  onChange={() => handleToggleTask(task.id)}
-                  data-testid={`tasks-toggle-${task.id}`}
+                  onChange={() => handleToggleTask(taskId)}
+                  data-testid={`tasks-toggle-${taskId}`}
                   className="w-5 h-5 text-indigo-600 rounded-lg border-2 border-gray-300 focus:ring-indigo-500 focus:ring-2 cursor-pointer"
                 />
                 <span className={`flex-1 font-medium ${
@@ -210,16 +293,16 @@ export default function TasksPage() {
                   {task.title}
                 </span>
                 {task.dueDate && (
-                  <span className="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full" data-testid={`tasks-due-${task.id}`}>
+                  <span className="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full" data-testid={`tasks-due-${taskId}`}>
                     📅 {task.dueDate}
                   </span>
                 )}
                 <button
-                  onClick={() => handleDeleteTask(task.id)}
+                  onClick={() => handleDeleteTask(taskId)}
                   className={`text-red-500 hover:text-red-700 hover:bg-red-50 rounded-lg p-2 transition-all ${
                     isSeedEnabled('tasks', 'small_hit_target') ? 'tiny-hit-target' : ''
                   }`}
-                  data-testid={`tasks-delete-${task.id}`}
+                  data-testid={`tasks-delete-${taskId}`}
                   aria-label={`Delete task: ${task.title}`}
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -227,7 +310,7 @@ export default function TasksPage() {
                   </svg>
                 </button>
               </div>
-            ))}
+            );})}
           </div>
         )}
       </div>

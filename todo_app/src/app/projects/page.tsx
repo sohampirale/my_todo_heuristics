@@ -1,23 +1,20 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { SeededButton } from '@/components/seeded';
 import { isSeedEnabled } from '@/lib/seeds';
 
 interface Project {
-  id: string;
+  _id?: string;
+  id?: string;
   name: string;
   color: string;
   tasks: string[];
 }
 
 export default function ProjectsPage() {
-  const [projects, setProjects] = useState<Project[]>([
-    { id: '1', name: 'Website Redesign', color: 'bg-blue-500', tasks: ['Design mockups', 'Implement homepage'] },
-    { id: '2', name: 'Mobile App', color: 'bg-green-500', tasks: ['Setup React Native', 'Create login screen'] },
-    { id: '3', name: 'Documentation', color: 'bg-purple-500', tasks: ['Write API docs'] },
-  ]);
-  
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
   const [newProjectName, setNewProjectName] = useState('');
   const [selectedProject, setSelectedProject] = useState<string | null>(null);
   const [newTaskName, setNewTaskName] = useState('');
@@ -25,37 +22,71 @@ export default function ProjectsPage() {
   const iconsInconsistent = isSeedEnabled('projects', 'icons_inconsistent');
   const hiddenControls = isSeedEnabled('projects', 'hidden_controls');
 
-  const handleCreateProject = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!newProjectName.trim()) return;
-    
-    const colors = ['bg-blue-500', 'bg-green-500', 'bg-purple-500', 'bg-red-500', 'bg-yellow-500'];
-    const newProject: Project = {
-      id: Date.now().toString(),
-      name: newProjectName,
-      color: colors[Math.floor(Math.random() * colors.length)],
-      tasks: [],
-    };
-    setProjects([...projects, newProject]);
-    setNewProjectName('');
+  useEffect(() => {
+    loadProjects();
+  }, []);
+
+  const loadProjects = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch('/api/projects');
+      const data = await res.json();
+      setProjects(data.projects || []);
+    } catch (error) {
+      console.error('Failed to load projects:', error);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleAddTaskToProject = (projectId: string) => {
+  const handleCreateProject = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newProjectName.trim()) return;
+
+    try {
+      const res = await fetch('/api/projects', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: newProjectName }),
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        setProjects([...projects, data.project]);
+        setNewProjectName('');
+      }
+    } catch (error) {
+      console.error('Failed to create project:', error);
+    }
+  };
+
+  const handleDeleteProject = async (projectId: string) => {
+    try {
+      const res = await fetch(`/api/projects/${projectId}`, {
+        method: 'DELETE',
+      });
+
+      if (res.ok) {
+        setProjects(projects.filter(project => (project._id || project.id) !== projectId));
+        if (selectedProject === projectId) {
+          setSelectedProject(null);
+        }
+      }
+    } catch (error) {
+      console.error('Failed to delete project:', error);
+    }
+  };
+
+  const handleAddTaskToProject = async (projectId: string) => {
     if (!newTaskName.trim()) return;
-    
-    setProjects(projects.map(project => 
-      project.id === projectId 
+
+    // For now, just add to client state - this would ideally create a task linked to project
+    setProjects(projects.map(project =>
+      (project._id || project.id) === projectId
         ? { ...project, tasks: [...project.tasks, newTaskName] }
         : project
     ));
     setNewTaskName('');
-  };
-
-  const handleDeleteProject = (projectId: string) => {
-    setProjects(projects.filter(project => project.id !== projectId));
-    if (selectedProject === projectId) {
-      setSelectedProject(null);
-    }
   };
 
   return (
@@ -75,11 +106,18 @@ export default function ProjectsPage() {
             className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             data-testid="projects-new-input"
           />
-          <SeededButton seedPage="projects" type="submit" data-testid="projects-create-btn">
-            Create Project
+          <SeededButton seedPage="projects" type="submit" data-testid="projects-create-btn" disabled={loading}>
+            {loading ? '...' : 'Create Project'}
           </SeededButton>
         </div>
       </form>
+
+      {/* Loading State */}
+      {loading && (
+        <div className="flex justify-center py-8" data-testid="projects-loading">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
+        </div>
+      )}
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Projects List */}
@@ -89,27 +127,29 @@ export default function ProjectsPage() {
               All Projects
             </h2>
             <div className="space-y-2">
-              {projects.map(project => (
+              {projects.map(project => {
+                const projectId = project._id || project.id || '';
+                return (
                 <div
-                  key={project.id}
-                  onClick={() => setSelectedProject(project.id)}
+                  key={projectId}
+                  onClick={() => setSelectedProject(projectId)}
                   className={`flex items-center gap-3 p-3 rounded-md cursor-pointer transition-colors ${
-                    selectedProject === project.id ? 'bg-blue-50' : 'hover:bg-gray-50'
+                    selectedProject === projectId ? 'bg-blue-50' : 'hover:bg-gray-50'
                   }`}
-                  data-testid={`project-item-${project.id}`}
+                  data-testid={`project-item-${projectId}`}
                 >
-                  <div className={`w-4 h-4 rounded ${project.color}`} data-testid={`project-color-${project.id}`} />
+                  <div className={`w-4 h-4 rounded ${project.color}`} data-testid={`project-color-${projectId}`} />
                   <span className="flex-1 text-gray-900">{project.name}</span>
                   <span className="text-sm text-gray-500">{project.tasks.length} tasks</span>
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
-                      handleDeleteProject(project.id);
+                      handleDeleteProject(projectId);
                     }}
                     className={`text-red-500 hover:text-red-700 ${
                       hiddenControls ? 'hidden-on-hover' : ''
                     }`}
-                    data-testid={`project-delete-${project.id}`}
+                    data-testid={`project-delete-${projectId}`}
                     aria-label={`Delete project: ${project.name}`}
                   >
                     {iconsInconsistent ? (
@@ -121,7 +161,7 @@ export default function ProjectsPage() {
                     )}
                   </button>
                 </div>
-              ))}
+              );})}
             </div>
           </div>
         </div>
@@ -131,9 +171,9 @@ export default function ProjectsPage() {
           {selectedProject ? (
             <div className="bg-white rounded-lg shadow-md p-6">
               {(() => {
-                const project = projects.find(p => p.id === selectedProject);
+                const project = projects.find(p => (p._id || p.id) === selectedProject);
                 if (!project) return null;
-                
+
                 return (
                   <>
                     <div className="flex items-center gap-3 mb-6">
@@ -144,7 +184,7 @@ export default function ProjectsPage() {
                     </div>
 
                     <h3 className="text-sm font-medium text-gray-500 mb-3">Tasks in this project</h3>
-                    
+
                     <div className="space-y-2 mb-4">
                       {project.tasks.length === 0 ? (
                         <p className="text-gray-500 text-sm" data-testid="project-no-tasks">
@@ -175,7 +215,7 @@ export default function ProjectsPage() {
                     <form
                       onSubmit={(e) => {
                         e.preventDefault();
-                        handleAddTaskToProject(project.id);
+                        handleAddTaskToProject(project._id || project.id || '');
                       }}
                       className="flex gap-2"
                     >

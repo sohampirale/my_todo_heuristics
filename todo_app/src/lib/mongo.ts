@@ -1,4 +1,4 @@
-import { MongoClient, Db, Document, Filter, WithId } from 'mongodb';
+import { MongoClient, Db, Document, Filter, WithId, ObjectId } from 'mongodb';
 
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017';
 const DB_NAME = 'todo_app';
@@ -7,7 +7,7 @@ let cachedClient: MongoClient | null = null;
 let cachedDb: Db | null = null;
 
 export interface Task {
-  _id?: string;
+  _id?: ObjectId;
   title: string;
   description?: string;
   dueDate?: Date;
@@ -19,7 +19,7 @@ export interface Task {
 }
 
 export interface Project {
-  _id?: string;
+  _id?: ObjectId;
   name: string;
   color: string;
   createdAt: Date;

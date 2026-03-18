@@ -1,0 +1,1 @@
+{"success":true,"task":{"title":"<script>alert('XSS')</script>","description":"","completed":false,"projectId":"","tags":[],"createdAt":"2026-03-18T16:13:19.685Z","updatedAt":"2026-03-18T16:13:19.685Z","_id":"69bacf1f736af44bd7633f30"}}

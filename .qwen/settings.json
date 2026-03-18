@@ -20,8 +20,7 @@
   "$version": 3,
   "mcp": {
     "excluded": [
-      "mcp-deepwiki",
-      "playwright"
+      "mcp-deepwiki"
     ]
   }
 }
