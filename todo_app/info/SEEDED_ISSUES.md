@@ -28,6 +28,47 @@ This document catalogs all **17 seeded UX faults** in the Todo App, organized by
 
 ---
 
+## Route → Issue → Heuristic Mapping
+
+| Route | Issue ID | Issue Description | Nielsen Heuristic |
+|-------|----------|-------------------|-------------------|
+| `/` | HOME-01 | Ambiguous CTA label ("Do It") | **H4** - Consistency & Standards |
+| `/` | HOME-02 | Modal missing close button | **H3** - User Control & Freedom |
+| `/auth` | AUTH-01 | Missing input labels | **H4** - Consistency & Standards |
+| `/auth` | AUTH-02 | Cryptic error messages ("ERR_AUTH_FAIL") | **H9** - Help Users Recover from Errors |
+| `/tasks` | TASKS-01 | No confirmation on delete | **H5** - Error Prevention |
+| `/tasks` | TASKS-02 | Tiny hit target (12x12px) | **H8** - Aesthetic & Minimalist Design |
+| `/task/[id]` | TASK-01 | Confusing save affordance (looks disabled) | **H4** - Consistency & Standards |
+| `/task/[id]` | TASK-02 | Non-standard date format (20260315) | **H2** - Match Between System & Real World |
+| `/projects` | PROJ-01 | Inconsistent icons | **H4** - Consistency & Standards |
+| `/projects` | PROJ-02 | Hidden controls (drag handles) | **H6** - Recognition Rather Than Recall |
+| `/calendar` | CAL-01 | No loading spinner | **H1** - Visibility of System Status |
+| `/calendar` | CAL-02 | Ambiguous timepicker (no AM/PM) | **H4** - Consistency & Standards |
+| `/search` | SRCH-01 | Filters reset unexpectedly | **H3** - User Control & Freedom |
+| `/search` | SRCH-02 | No help on empty results | **H3** - User Control & Freedom |
+| `/settings` | SET-01 | Destructive toggle no warning | **H5** - Error Prevention |
+| `/settings` | SET-02 | Ambiguous toggle labels | **H4** - Consistency & Standards |
+| `/onboarding` | ONB-01 | Skip button too prominent | **H5** - Error Prevention |
+
+### Heuristics Violation Summary
+
+| Heuristic | Description | Issues | Count |
+|-----------|-------------|--------|-------|
+| **H1** | Visibility of system status | CAL-01 | 1 |
+| **H2** | Match between system and real world | TASK-02 | 1 |
+| **H3** | User control and freedom | HOME-02, SRCH-01, SRCH-02 | 3 |
+| **H4** | Consistency and standards | HOME-01, AUTH-01, TASK-01, PROJ-01, CAL-02, SET-02 | 6 |
+| **H5** | Error prevention | TASKS-01, SET-01, ONB-01 | 3 |
+| **H6** | Recognition rather than recall | PROJ-02 | 1 |
+| **H7** | Flexibility and efficiency of use | *(none)* | 0 |
+| **H8** | Aesthetic and minimalist design | TASKS-02 | 1 |
+| **H9** | Help users recover from errors | AUTH-02 | 1 |
+| **H10** | Help and documentation | *(none)* | 0 |
+
+**Most violated heuristic:** H4 (Consistency & Standards) with 6 issues
+
+---
+
 ## Nielsen's 10 Heuristics Reference
 
 1. **Visibility of system status** - Users should know what's happening

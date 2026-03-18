@@ -30,8 +30,8 @@ export default function HomePage() {
           <h1 className="text-4xl font-bold mb-4 text-white" data-testid="home-title">
             Welcome to TodoApp
           </h1>
-          <p className="text-lg text-indigo-100 mb-6 max-w-2xl">
-            Manage your tasks, projects, and schedule all in one beautiful place. 
+          <p className="text-lg text-white/90 mb-6 max-w-2xl">
+            Manage your tasks, projects, and schedule all in one beautiful place.
             Stay organized and boost your productivity.
           </p>
           
