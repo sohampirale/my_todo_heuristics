@@ -6,10 +6,17 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test:playwright": "playwright test",
+    "test:playwright:ui": "playwright test --ui",
+    "smoke": "node scripts/smoke.js"
   },
   "dependencies": {
+    "@playwright/test": "^1.58.2",
+    "mongodb": "^7.1.0",
     "next": "16.1.6",
+    "playwright": "^1.58.2",
     "react": "19.2.3",
     "react-dom": "19.2.3"
   },

@@ -1,0 +1,43 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - link "TodoApp" [ref=e5] [cursor=pointer]:
+      - /url: /
+  - main [ref=e6]:
+    - generic [ref=e7]:
+      - heading "Tasks" [level=1] [ref=e8]
+      - generic [ref=e10]:
+        - textbox "Add a new task..." [ref=e11]
+        - button "Add Task" [ref=e12]
+      - generic [ref=e15]:
+        - button "All" [ref=e16]
+        - button "Active" [ref=e17]
+        - button "Completed" [ref=e18]
+      - generic [ref=e19]:
+        - generic [ref=e20]:
+          - checkbox [ref=e21]
+          - checkbox [ref=e22]
+          - generic [ref=e23]: Complete project proposal
+          - generic [ref=e24]: "Due: 2026-03-20"
+          - 'button "Delete task: Complete project proposal" [ref=e25]':
+            - img [ref=e26]
+        - generic [ref=e28]:
+          - checkbox [ref=e29]
+          - checkbox [checked] [ref=e30]
+          - generic [ref=e31]: Review pull requests
+          - generic [ref=e32]: "Due: 2026-03-18"
+          - 'button "Delete task: Review pull requests" [ref=e33]':
+            - img [ref=e34]
+        - generic [ref=e36]:
+          - checkbox [ref=e37]
+          - checkbox [ref=e38]
+          - generic [ref=e39]: Write documentation
+          - generic [ref=e40]: "Due: 2026-03-22"
+          - 'button "Delete task: Write documentation" [ref=e41]':
+            - img [ref=e42]
+  - button "Open Next.js Dev Tools" [ref=e49] [cursor=pointer]:
+    - img [ref=e50]
+  - alert [ref=e53]
+```

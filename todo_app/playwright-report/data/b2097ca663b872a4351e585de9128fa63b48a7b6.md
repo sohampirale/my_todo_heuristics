@@ -1,0 +1,62 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - link "TodoApp" [ref=e5] [cursor=pointer]:
+      - /url: /
+  - main [ref=e6]:
+    - generic [ref=e7]:
+      - heading "Settings" [level=1] [ref=e8]
+      - generic [ref=e9]:
+        - heading "Profile" [level=2] [ref=e10]
+        - generic [ref=e11]:
+          - generic [ref=e12]:
+            - generic [ref=e13]: Name
+            - textbox [ref=e14]: John Doe
+          - generic [ref=e15]:
+            - generic [ref=e16]: Email
+            - textbox [ref=e17]: john@example.com
+          - button "Save Changes" [ref=e18]
+      - generic [ref=e19]:
+        - heading "Preferences" [level=2] [ref=e20]
+        - generic [ref=e21]:
+          - generic [ref=e22]:
+            - generic [ref=e23]:
+              - paragraph [ref=e24]: Toggle
+              - paragraph [ref=e25]: Enable/Disable
+            - checkbox [checked] [ref=e26]
+          - generic [ref=e27]:
+            - generic [ref=e28]:
+              - paragraph [ref=e29]: Toggle
+              - paragraph [ref=e30]: Enable/Disable
+            - checkbox [ref=e31]
+          - generic [ref=e32]:
+            - generic [ref=e33]:
+              - paragraph [ref=e34]: Toggle
+              - paragraph [ref=e35]: Enable/Disable
+            - checkbox [checked] [ref=e36]
+          - generic [ref=e37]:
+            - generic [ref=e38]:
+              - paragraph [ref=e39]: Toggle
+              - paragraph [ref=e40]: Enable/Disable
+            - checkbox [ref=e41]
+      - generic [ref=e42]:
+        - heading "Danger Zone" [level=2] [ref=e43]
+        - generic [ref=e45]:
+          - generic [ref=e46]:
+            - paragraph [ref=e47]: Toggle
+            - paragraph [ref=e48]: Enable/Disable
+          - generic [ref=e49]:
+            - checkbox [ref=e50]
+            - button "Delete Account" [disabled] [ref=e51]
+      - generic [ref=e52]:
+        - heading "About" [level=2] [ref=e53]
+        - generic [ref=e54]:
+          - paragraph [ref=e55]: "Version: 1.0.0"
+          - paragraph [ref=e56]: "Build: 2026.03.15"
+          - paragraph [ref=e57]: "Environment: development"
+  - button "Open Next.js Dev Tools" [ref=e63] [cursor=pointer]:
+    - img [ref=e64]
+  - alert [ref=e67]
+```

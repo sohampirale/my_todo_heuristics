@@ -1,0 +1,66 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - navigation [ref=e2]:
+    - link "TodoApp" [ref=e5] [cursor=pointer]:
+      - /url: /
+  - main [ref=e6]:
+    - generic [ref=e7]:
+      - heading "Calendar" [level=1] [ref=e8]
+      - generic [ref=e10]:
+        - generic [ref=e11]:
+          - button "← Previous" [ref=e12]
+          - button "Next →" [ref=e13]
+          - heading "Week of Mar 15, 2026" [level=2] [ref=e14]
+        - generic [ref=e15]:
+          - button "Day" [ref=e16]
+          - button "Week" [ref=e17]
+      - generic [ref=e19]:
+        - generic [ref=e20]:
+          - generic [ref=e21]:
+            - generic [ref=e22]: Sun
+            - generic [ref=e23]: "15"
+          - generic [ref=e25] [cursor=pointer]:
+            - text: Test Event
+            - generic [ref=e26]: 14:00
+        - generic [ref=e27]:
+          - generic [ref=e28]:
+            - generic [ref=e29]: Mon
+            - generic [ref=e30]: "16"
+          - generic [ref=e32] [cursor=pointer]:
+            - text: Team meeting
+            - generic [ref=e33]: 10:00
+        - generic [ref=e34]:
+          - generic [ref=e35]:
+            - generic [ref=e36]: Tue
+            - generic [ref=e37]: "17"
+          - generic [ref=e39] [cursor=pointer]:
+            - text: Code review
+            - generic [ref=e40]: 14:00
+        - generic [ref=e42]:
+          - generic [ref=e43]: Wed
+          - generic [ref=e44]: "18"
+        - generic [ref=e45]:
+          - generic [ref=e46]:
+            - generic [ref=e47]: Thu
+            - generic [ref=e48]: "19"
+          - generic [ref=e50] [cursor=pointer]:
+            - text: Project deadline
+            - generic [ref=e51]: 17:00
+        - generic [ref=e53]:
+          - generic [ref=e54]: Fri
+          - generic [ref=e55]: "20"
+        - generic [ref=e57]:
+          - generic [ref=e58]: Sat
+          - generic [ref=e59]: "21"
+      - generic [ref=e60]:
+        - heading "Create Event" [level=3] [ref=e61]
+        - generic [ref=e62]:
+          - textbox "Event title" [ref=e63]
+          - textbox [ref=e64]
+          - button "Add Event" [active] [ref=e65]
+  - button "Open Next.js Dev Tools" [ref=e71] [cursor=pointer]:
+    - img [ref=e72]
+  - alert [ref=e75]
+```

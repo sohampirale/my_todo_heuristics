@@ -1,0 +1,41 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - navigation [ref=e2]:
+    - link "TodoApp" [ref=e5] [cursor=pointer]:
+      - /url: /
+  - main [ref=e6]:
+    - generic [ref=e7]:
+      - button "← Back to Tasks" [ref=e9]
+      - generic [ref=e10]:
+        - generic [ref=e11]:
+          - heading "Updated task title" [level=1] [ref=e12]
+          - button "Edit" [ref=e14]
+        - generic [ref=e15]:
+          - heading "Description" [level=2] [ref=e16]
+          - paragraph [ref=e17]: This is a sample task description.
+        - generic [ref=e18]:
+          - heading "Due Date" [level=2] [ref=e19]
+          - paragraph [ref=e20]: Mar 20, 2026
+        - generic [ref=e21]:
+          - heading "Tags" [level=2] [ref=e22]
+          - generic [ref=e23]:
+            - generic [ref=e24]: "#work"
+            - generic [ref=e25]: "#urgent"
+        - generic [ref=e26]:
+          - checkbox [checked] [active] [ref=e27]
+          - generic [ref=e28]: Mark as complete
+      - generic [ref=e29]:
+        - heading "Comments" [level=2] [ref=e30]
+        - generic [ref=e31]:
+          - paragraph [ref=e33]: Task created
+          - paragraph [ref=e35]: Updated description
+          - paragraph [ref=e37]: Test comment
+        - generic [ref=e38]:
+          - textbox "Add a comment..." [ref=e39]
+          - button "Add Comment" [ref=e40]
+  - button "Open Next.js Dev Tools" [ref=e46] [cursor=pointer]:
+    - img [ref=e47]
+  - alert [ref=e50]
+```

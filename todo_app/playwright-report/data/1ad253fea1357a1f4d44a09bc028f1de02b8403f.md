@@ -1,0 +1,49 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - navigation [ref=e2]:
+    - link "TodoApp" [ref=e5] [cursor=pointer]:
+      - /url: /
+  - main [ref=e6]:
+    - generic [ref=e7]:
+      - generic [ref=e8]:
+        - heading "Welcome to TodoApp" [level=1] [ref=e9]
+        - paragraph [ref=e10]: Manage your tasks, projects, and schedule all in one place.
+        - generic [ref=e11]:
+          - button "Do It" [ref=e12]
+          - link "View Projects" [ref=e13] [cursor=pointer]:
+            - /url: /projects
+            - button "View Projects" [ref=e14]
+      - generic [ref=e15]:
+        - generic [ref=e16]:
+          - heading "Tasks" [level=2] [ref=e17]
+          - paragraph [ref=e18]: View and manage all your tasks
+          - link "Go to Tasks →" [ref=e19] [cursor=pointer]:
+            - /url: /tasks
+        - generic [ref=e20]:
+          - heading "Projects" [level=2] [ref=e21]
+          - paragraph [ref=e22]: Organize tasks into projects
+          - link "Go to Projects →" [ref=e23] [cursor=pointer]:
+            - /url: /projects
+        - generic [ref=e24]:
+          - heading "Calendar" [level=2] [ref=e25]
+          - paragraph [ref=e26]: Schedule and plan ahead
+          - link "Go to Calendar →" [ref=e27] [cursor=pointer]:
+            - /url: /calendar
+      - dialog [ref=e28]:
+        - generic [ref=e30]:
+          - heading "Quick Add Task" [level=3] [ref=e32]
+          - generic [ref=e33]:
+            - generic [ref=e34]:
+              - generic [ref=e35]: Task Title
+              - textbox "Task Title" [active] [ref=e36]:
+                - /placeholder: Enter task title
+                - text: Test task from Playwright
+            - generic [ref=e37]:
+              - button "Cancel" [ref=e38]
+              - button "Add Task" [ref=e39]
+  - button "Open Next.js Dev Tools" [ref=e45] [cursor=pointer]:
+    - img [ref=e46]
+  - alert [ref=e49]
+```

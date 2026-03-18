@@ -1,0 +1,43 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - navigation [ref=e2]:
+    - link "TodoApp" [ref=e5] [cursor=pointer]:
+      - /url: /
+  - main [ref=e6]:
+    - generic [ref=e7]:
+      - heading "Projects" [level=1] [ref=e8]
+      - generic [ref=e10]:
+        - textbox "New project name..." [ref=e11]
+        - button "Create Project" [ref=e12]
+      - generic [ref=e13]:
+        - generic [ref=e15]:
+          - heading "All Projects" [level=2] [ref=e16]
+          - generic [ref=e17]:
+            - generic [ref=e18] [cursor=pointer]:
+              - generic [ref=e19]: Website Redesign
+              - generic [ref=e20]: 3 tasks
+            - generic [ref=e21] [cursor=pointer]:
+              - generic [ref=e22]: Mobile App
+              - generic [ref=e23]: 2 tasks
+            - generic [ref=e24] [cursor=pointer]:
+              - generic [ref=e25]: Documentation
+              - generic [ref=e26]: 1 tasks
+            - generic [ref=e27] [cursor=pointer]:
+              - generic [ref=e28]: Test Project
+              - generic [ref=e29]: 0 tasks
+        - generic [ref=e31]:
+          - heading "Website Redesign" [level=2] [ref=e33]
+          - heading "Tasks in this project" [level=3] [ref=e34]
+          - generic [ref=e35]:
+            - generic [ref=e37]: Design mockups
+            - generic [ref=e39]: Implement homepage
+            - generic [ref=e41]: Project task
+          - generic [ref=e42]:
+            - textbox "Add task to this project..." [ref=e43]
+            - button "Add Task" [active] [ref=e44]
+  - button "Open Next.js Dev Tools" [ref=e50] [cursor=pointer]:
+    - img [ref=e51]
+  - alert [ref=e54]
+```

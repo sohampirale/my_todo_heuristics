@@ -1,0 +1,37 @@
+{
+  "mode": "lite",
+  "home": {
+    "ambiguous_cta": true,
+    "modal_no_close": true
+  },
+  "auth": {
+    "missing_labels": true,
+    "cryptic_error": true
+  },
+  "tasks": {
+    "no_confirm_delete": true,
+    "small_hit_target": true
+  },
+  "task": {
+    "save_affordance_confusing": true
+  },
+  "projects": {
+    "icons_inconsistent": true,
+    "hidden_controls": true
+  },
+  "calendar": {
+    "no_spinner": true,
+    "ambiguous_timepicker": true
+  },
+  "search": {
+    "filters_reset": true,
+    "missing_no_results_help": true
+  },
+  "settings": {
+    "destructive_toggle_no_warn": true,
+    "ambiguous_toggle_labels": true
+  },
+  "onboarding": {
+    "skip_too_easy": true
+  }
+}

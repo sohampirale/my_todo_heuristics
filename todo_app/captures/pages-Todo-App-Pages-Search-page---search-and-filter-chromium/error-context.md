@@ -1,0 +1,76 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - navigation [ref=e2]:
+    - link "TodoApp" [ref=e5] [cursor=pointer]:
+      - /url: /
+  - main [ref=e6]:
+    - generic [ref=e7]:
+      - heading "Search & Filters" [level=1] [ref=e8]
+      - generic [ref=e10]:
+        - textbox "Search tasks..." [ref=e11]
+        - button "Search" [ref=e12]
+      - generic [ref=e13]:
+        - generic [ref=e14]:
+          - heading "Filters" [level=2] [ref=e15]
+          - button "Clear All" [ref=e16]
+        - generic [ref=e17]:
+          - heading "Tags" [level=3] [ref=e18]
+          - generic [ref=e19]:
+            - button "#work" [ref=e20]
+            - button "#urgent" [ref=e21]
+            - button "#personal" [ref=e22]
+            - button "#health" [ref=e23]
+        - generic [ref=e24]:
+          - heading "Sort By" [level=3] [ref=e25]
+          - generic [ref=e26]:
+            - button "Due Date" [ref=e27]
+            - button "Alphabetical" [ref=e28]
+            - button "Status" [ref=e29]
+        - generic [ref=e30]:
+          - checkbox "Show completed tasks" [active] [ref=e31]
+          - generic [ref=e32]: Show completed tasks
+      - generic [ref=e33]:
+        - heading "Results (4)" [level=2] [ref=e34]
+        - generic [ref=e35]:
+          - generic [ref=e37]:
+            - generic [ref=e38]:
+              - heading "Buy groceries" [level=3] [ref=e39]
+              - paragraph [ref=e40]: Milk, eggs, bread, vegetables
+              - generic [ref=e41]:
+                - generic [ref=e42]: "Due: 2026-03-16"
+                - generic [ref=e44]: "#personal"
+            - generic [ref=e45]: Active
+          - generic [ref=e47]:
+            - generic [ref=e48]:
+              - heading "Complete project proposal" [level=3] [ref=e49]
+              - paragraph [ref=e50]: Write and submit the Q2 project proposal
+              - generic [ref=e51]:
+                - generic [ref=e52]: "Due: 2026-03-20"
+                - generic [ref=e53]:
+                  - generic [ref=e54]: "#work"
+                  - generic [ref=e55]: "#urgent"
+            - generic [ref=e56]: Active
+          - generic [ref=e58]:
+            - generic [ref=e59]:
+              - heading "Write documentation" [level=3] [ref=e60]
+              - paragraph [ref=e61]: Update API docs for v2.0
+              - generic [ref=e62]:
+                - generic [ref=e63]: "Due: 2026-03-22"
+                - generic [ref=e65]: "#work"
+            - generic [ref=e66]: Active
+          - generic [ref=e68]:
+            - generic [ref=e69]:
+              - heading "Schedule dentist appointment" [level=3] [ref=e70]
+              - paragraph [ref=e71]: Annual checkup
+              - generic [ref=e72]:
+                - generic [ref=e73]: "Due: 2026-03-25"
+                - generic [ref=e74]:
+                  - generic [ref=e75]: "#personal"
+                  - generic [ref=e76]: "#health"
+            - generic [ref=e77]: Active
+  - button "Open Next.js Dev Tools" [ref=e83] [cursor=pointer]:
+    - img [ref=e84]
+  - alert [ref=e87]
+```
